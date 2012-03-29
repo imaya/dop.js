@@ -4,6 +4,7 @@ global.Dop = Dop;
 
  /**
   * @param {!Function} workerFunc worker function.
+  * @constructor
   */
 function Dop(workerFunc) {
   var that = this;
@@ -46,6 +47,7 @@ function Dop(workerFunc) {
 
 /**
  * createObjectURL
+ * @const {function}
  */
 Dop.createObjectURL =
   (global.URL && typeof(global.URL.createObjectURL) === 'function') ?
@@ -56,10 +58,11 @@ Dop.createObjectURL =
     function(blob) {
       return global.webkitURL.createObjectURL(blob);
     } :
-  undefined;
+  void 0;
 
 /**
  * BlobBuilder
+ * @const {!function}
  */
 Dop.createBlobBuilder =
   (typeof(global.BlobBuilder) === 'function') ?
@@ -78,7 +81,7 @@ Dop.createBlobBuilder =
     function() {
       return new global.MSBlobBuilder();
     } :
-  undefined;
+  void 0;
 
 /**
  * onmessage 実装
