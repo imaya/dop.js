@@ -18,7 +18,7 @@ function Dop(workerFunc) {
   this.func = workerFunc;
 
   // BlobBuilder & createObjectURL & Worker
-  if (Dop.CreateBlobBuilder && Dop.CreateObjectURL && global.Worker) {
+  if (Dop.createBlobBuilder && Dop.createObjectURL && global.Worker) {
     this.support = true;
 
     funcString = [
@@ -30,9 +30,9 @@ function Dop(workerFunc) {
       '};'
     ].join("\n");
 
-    blobBuilder = Dop.CreateBlobBuilder();
+    blobBuilder = Dop.createBlobBuilder();
     blobBuilder.append(funcString);
-    blobURL = Dop.CreateObjectURL(blobBuilder.getBlob());
+    blobURL = Dop.createObjectURL(blobBuilder.getBlob());
 
     this.worker = new Worker(blobURL);
     this.worker.onmessage =
@@ -45,9 +45,9 @@ function Dop(workerFunc) {
 }
 
 /**
- * CreateObjectURL
+ * createObjectURL
  */
-Dop.CreateObjectURL =
+Dop.createObjectURL =
   (global.URL && typeof(global.URL.createObjectURL) === 'function') ?
     function(blob) {
       return global.URL.createObjectURL(blob);
@@ -61,7 +61,7 @@ Dop.CreateObjectURL =
 /**
  * BlobBuilder
  */
-Dop.CreateBlobBuilder =
+Dop.createBlobBuilder =
   (typeof(global.BlobBuilder) === 'function') ?
     function() {
       return new global.BlobBuilder();
