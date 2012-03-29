@@ -22,9 +22,7 @@ function Dop(workerFunc) {
     this.support = true;
 
     funcString = [
-      'var __selfcopy__ = self;',
       'var __workerfunc__ = ' + workerFunc.toString() + ';',
-      'self = __selfcopy__;',
       'self.onmessage = function(ev) {',
       '  self.postMessage(',
       '    __workerfunc__.call(self, ev.data[0])',
