@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="dop.js"></script>
+</head>
+<body>
+<script>
+	var dop = new Dop(function(data) {
+		return data;
+	});
+
+	dop.onmessage = function(data) {
+		console.log(data);
+	};
+	dop.onerror = function(e) {
+		console.log(e);
+	};
+	dop.postMessage('hoge');
+</script>
+</body>
+</html>
