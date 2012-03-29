@@ -110,12 +110,14 @@ Dop.prototype.onerrorImpl_ = function(error) {
  * postMessage.
  */
 Dop.prototype.postMessage = function() {
+  var args = Dop.convertToArray(arguments);
+
   if (global.Worker && this.worker instanceof Worker) {
-    this.worker.postMessage(arguments);
+    this.worker.postMessage(args);
   } else if (typeof(this.func) === 'function') {
-    this.postMessageNonWorker_(arguments);
+    this.postMessageNonWorker_(args);
   }
-};
+}
 
 /**
  * Worker を使用しない postMessage 実装.
@@ -139,6 +141,22 @@ Dop.prototype.postMessageNonWorker_ = function(args) {
     }, 0
   );
 };
+
+/**
+ * Worker とのやり取りで arguments を直接渡すと例外になるケースがある為、
+ * arguments を Array に変換する.
+ * @param {!{length: <number>}} args arguments object.
+ * @return {Array} arguments array
+ */
+Dop.convertToArray = function(args) {
+  var array = [], i, il;
+
+  for (i = 0, il = args.length; i < il; ++i) {
+    array[i] = args[i];
+  }
+
+  return array;
+}
 
 })(this);
 
