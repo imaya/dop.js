@@ -137,7 +137,7 @@ Dop.prototype.postMessage = function() {
   } else if (typeof(this.func) === 'function') {
     this.postMessageNonWorker_(args);
   }
-}
+};
 
 /**
  * Worker を使用しない postMessage 実装.
@@ -176,7 +176,7 @@ Dop.convertToArray = function(args) {
   }
 
   return array;
-}
+};
 
 })(this);
 
