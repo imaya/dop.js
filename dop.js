@@ -40,6 +40,8 @@ function Dop(workerFunc) {
       function() { that.onmessageImpl_.apply(that, arguments) };
     this.worker.onerror =
       function() { that.onerrorImpl_.apply(that, arguments) };
+
+    Dop.revokeObjectURL(blobURL);
   } else {
     this.support = false;
   }
@@ -57,6 +59,21 @@ Dop.createObjectURL =
   (global.webkitURL && typeof global.webkitURL.createObjectURL === 'function') ?
     function(blob) {
       return global.webkitURL.createObjectURL(blob);
+    } :
+  void 0;
+
+/**
+ * revokeObjectURL
+ * @const {function}
+ */
+Dop.revokeObjectURL =
+  (global.URL && typeof(global.URL.revokeObjectURL) === 'function') ?
+    function(blob) {
+      return global.URL.revokeObjectURL(blob);
+    } :
+  (global.webkitURL && typeof global.webkitURL.revokeObjectURL === 'function') ?
+    function(blob) {
+      return global.webkitURL.revokeObjectURL(blob);
     } :
   void 0;
 
